@@ -1,0 +1,54 @@
+CREATE TABLE popular_recipes (
+recipe_id INT, 
+user_id INT, 
+rating DOUBLE, 
+date DATE, 
+name TEXT, 
+PRIMARY KEY((date,recipe_id),user_id)
+) WITH CLUSTERING ORDER BY (user_id ASC);
+
+CREATE TABLE recipes_by_name ( 
+recipe_id INT, 
+name TEXT, 
+PRIMARY KEY((name),recipe_id)
+) WITH CLUSTERING ORDER BY (recipe_id ASC);
+
+CREATE TABLE recipes_by_difficulty ( 
+recipe_id INT, 
+user_id INT, 
+rating DOUBLE, 
+n_steps INT, 
+minutes INT, 
+category TEXT,
+name TEXT,
+PRIMARY KEY((category),recipe_id,user_id)
+) WITH CLUSTERING ORDER BY (recipe_id ASC, user_id ASC);
+
+CREATE TABLE recipes_by_tag ( 
+recipe_id INT, 
+user_id INT, 
+rating DOUBLE, 
+tags TEXT,
+name TEXT, 
+submitted DATE,
+PRIMARY KEY((tags),recipe_id,user_id)
+) WITH CLUSTERING ORDER BY (recipe_id ASC, user_id ASC);
+
+CREATE TABLE recipe_details ( 
+recipe_id INT, 
+name TEXT, 
+contributor_id INT,
+user_id INT,
+submitted DATE,  
+rating DOUBLE, 
+tags TEXT,
+n_steps INT, 
+minutes INT, 
+steps list<text>, 
+n_ingredients INT,
+ingredients list<text>, 
+nutrition list<text>, 
+category TEXT,
+description TEXT,
+PRIMARY KEY((recipe_id),user_id)
+) WITH CLUSTERING ORDER BY (user_id ASC);
