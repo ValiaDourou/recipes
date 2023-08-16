@@ -3,7 +3,7 @@ from cassandra.auth import PlainTextAuthProvider
 import json
 
 cloud_config= {
-  'secure_connect_bundle': 'C:/Users/user/Desktop/recipes/secure-connect-recipes.zip'
+  'secure_connect_bundle': 'C:/Users/user/Documents/GitHub/recipes/recipes/secure-connect-recipes.zip'
 }
 auth_provider = PlainTextAuthProvider("rbmuBBtqEGPLxfWOnynEEyaP", "Cy10zjFZGx9yBz_JJZhEpG2CB2GhiN2aWpscs2woRB_7Z63gROoPljbT+Ry7Fz,S11d0bxIPHXEPZ34_YOHRSGrnnZOsS15rs-0sere5ev2CIiKIgGp2+aywc7GAXF8L")
 cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)

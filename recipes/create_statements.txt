@@ -4,8 +4,10 @@ user_id INT,
 rating DOUBLE, 
 date DATE, 
 name TEXT, 
-PRIMARY KEY((date,recipe_id),user_id)
-) WITH CLUSTERING ORDER BY (user_id ASC);
+PRIMARY KEY((recipe_id),date)
+) WITH CLUSTERING ORDER BY (date ASC);
+
+CREATE INDEX ON popular_recipes (date); 
 
 CREATE TABLE recipes_by_name ( 
 recipe_id INT, 
