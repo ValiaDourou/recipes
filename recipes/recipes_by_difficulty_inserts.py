@@ -46,15 +46,13 @@ with open('merged.json') as data_file:
           category='hard'
        else:
           category='expert'
-       user_id=v['user_id']
-       rating=v['rating']
        ucount=0
-       r=0
-       for r in data['users']:
+       rt=0
+       for p in v['users']:
           ucount=ucount+1
-       for z in data['ratings']:
-          r=r+int(z)
-       rating=r/ucount
+       for z in v['ratings']:
+          rt=rt+int(z)
+       rating=rt/ucount
        session.execute("""INSERT INTO recipes.recipes_by_difficulty (recipe_id,rating,n_steps,minutes,category,name)VALUES (%s,%s,%s,%s,%s,%s)""",(int(recipe_id),float(rating),int(n_steps),int(minutes),category, name)) 
 
 cluster.shutdown()
