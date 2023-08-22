@@ -35,6 +35,8 @@ with open('merged.json') as data_file:
     for v in data:
        recipe_id=v['recipe_id']
        name=v['name']
+       if name=='':
+        name='unknown'
        contributor_id=v['contributor_id']
        submitted=v['submitted']
        tags=v['tags']
