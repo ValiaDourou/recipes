@@ -12,7 +12,7 @@ CREATE INDEX ON popular_recipes (date);
 CREATE TABLE recipes_by_name ( 
 recipe_id INT, 
 name TEXT, 
-PRIMARY KEY((name),recipe_id)
+PRIMARY KEY(name,recipe_id)
 ) WITH CLUSTERING ORDER BY (recipe_id ASC);
 
 CREATE TABLE recipes_by_difficulty ( 
@@ -32,7 +32,7 @@ tags TEXT,
 name TEXT, 
 submitted DATE,
 PRIMARY KEY((tags),rating,submitted)
-) WITH CLUSTERING ORDER BY rating DESC, submitted DESC);
+) WITH CLUSTERING ORDER BY (rating DESC, submitted DESC);
 
 CREATE TABLE recipe_details ( 
 recipe_id INT, 
@@ -43,10 +43,10 @@ rating DOUBLE,
 tags TEXT,
 n_steps INT, 
 minutes INT, 
-steps list<text>, 
+steps TEXT, 
 n_ingredients INT,
-ingredients list<text>, 
-nutrition list<text>, 
+ingredients TEXT, 
+nutrition TEXT, 
 category TEXT,
 description TEXT,
 PRIMARY KEY((name),recipe_id)

@@ -1,6 +1,6 @@
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
-import json
+import time
 
 cloud_config= {
   'secure_connect_bundle': 'C:/Users/user/Documents/GitHub/recipes/recipes/secure-connect-recipes.zip'
@@ -10,15 +10,15 @@ cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
 session = cluster.connect()
 session.default_timeout = 60
 
-with open('recipes.json') as file:    
-    data = json.load(file)
-    for v in data:
-     recipe_id=v['id']
-     txt=v['name']
-     name = txt.split()
-     if txt=='':
-      name.append('unknown')
-     for s in name:
-      session.execute("""INSERT INTO recipes.recipes_by_name (recipe_id,name)VALUES (%s,%s)""",(int(recipe_id),s)) 
+start = time.time()
+
+fq = session.execute("select recipe_id, name, rating from recipes.recipes_by_difficulty where category='easy' order by rating DESC;")
+
+for row in fq:
+ print(row[0], row[1], row[2])
+
+end = time.time()
+print('Execution time:')
+print(end - start)
 
 cluster.shutdown()
