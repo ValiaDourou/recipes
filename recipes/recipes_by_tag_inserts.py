@@ -27,9 +27,12 @@ with open('merged.json') as data_file:
        taglist=[]
        found=0
        txt=v['tags']
-       l=len(txt)
-       s=txt[1:l-1]
-       aList = s.split(", ")
+       if txt=="['']":
+        aList.append('unknown')
+       else:
+        l=len(txt)
+        s=txt[1:l-1]
+        aList = s.split(", ")
        for t in aList:
           for a in taglist:
              if a==t:
