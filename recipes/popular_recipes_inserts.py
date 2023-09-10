@@ -10,18 +10,24 @@ cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
 session = cluster.connect()
 session.default_timeout = 60
 
-with open('interactions.json') as data_file:    
+with open('merged.json') as data_file:    
     data = json.load(data_file)
-    with open('recipes.json') as file2:    
-     data2 = json.load(file2)
     for v in data:
        recipe_id=v['recipe_id']
-       user_id=v['user_id']
-       rating=v['rating']
-       date=v['date']
-       for f in data2:
-         if(f['id']==recipe_id):
-           name=f['name']
-       session.execute("""INSERT INTO recipes.popular_recipes (recipe_id,user_id,rating,date,name)VALUES (%s,%s,%s,%s,%s)""",(int(recipe_id), int(user_id),float(rating),date, name)) 
+       name=v['name']
+       ucount=0
+       rt=0
+       userl=[]
+       ratingl=[]
+       datel=[]
+       for p in v['users']:
+          ucount=ucount+1
+          userl.append(p)
+       for z in v['ratings']:
+          ratingl.append(z)
+       for d in v['dates']:
+          datel.append(d)
+       for c in range(ucount):
+          session.execute("""INSERT INTO recipes.popular_recipes (recipe_id,user_id,rating,date,name)VALUES (%s,%s,%s,%s,%s)""",(int(recipe_id), int(userl[c]),float(ratingl[c]),datel[c], name)) 
 
 cluster.shutdown()
