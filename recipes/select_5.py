@@ -12,11 +12,12 @@ session.default_timeout = 60
 future = session.execute_async("select recipe_id, name, rating from recipes.recipes_by_tag where tags='cocktails' order by rating DESC limit 20;", trace=True)
 result = future.result()
 trace = future.get_query_trace()
-for e in trace.events:
-  print (e.source_elapsed, e.description)
 
 for row in result:
  print(row[0], row[1], row[2])
+
+for e in trace.events:
+  print (e.source_elapsed, e.description)
 
 
 cluster.shutdown()

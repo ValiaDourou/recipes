@@ -19,12 +19,11 @@ for r in rows:
 future = session.execute_async("select recipe_id,name,avgr from recipes.temp_popular WHERE date_range = '2012-01-01 - 2012-05-31' ORDER BY avgr DESC limit 30;", trace=True)
 result = future.result()
 trace = future.get_query_trace()
-for e in trace.events:
-  print (e.source_elapsed, e.description)
   
 for row in result:
  print("recipe_id:",row[0],", name:", row[1],", average rating:",row[2])
 
-
+for e in trace.events:
+  print (e.source_elapsed, e.description)
 
 cluster.shutdown()
