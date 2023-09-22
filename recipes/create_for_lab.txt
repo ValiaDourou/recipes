@@ -1,5 +1,4 @@
-CREATE KEYSPACE recipes WITH REPLICATION =
-  { 'class' : 'SimpleStrategy', 'replication_factor' : 4 };
+CREATE KEYSPACE recipes WITH REPLICATION ={ 'class' : 'SimpleStrategy', 'replication_factor' : 4 };
 
 CREATE TABLE popular_recipes (
 recipe_id INT, 
